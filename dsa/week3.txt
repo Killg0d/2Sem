@@ -1,0 +1,49 @@
+
+int precedence(char c)
+{
+        switch(c)
+        {
+                case '(':return 0;
+                case '^':return 1;
+                case '*':
+                case '/':return 2
+                case '%':return 3;
+                case '+':
+                case '-':return 4;
+        }
+}
+int main()
+{
+        Stack s;
+        char ch[]="(a+b-(c*d^e)*x+y";
+        int length=0;
+        for(;ch[length]!='\0';length++);
+        cout<<length;
+        ch[length+1]=')';
+        char p[length];
+        s.push('(');
+        int k=0;
+        for(int i=0;ch[i]!='\0';i++)
+        {
+                switch(ch[i])
+                {
+                        case '(':
+                                s.push(ch[i]);
+                                break;
+                        case '^':
+                        case '*':
+                        case '/':
+                        case '+':
+                        case '-':
+                        case '%':
+                                while(precedence(s.peek())<=precedence(ch[i]))
+                                {
+                                        p[k++]=s.pop();
+                                }
+                                s.push(ch[i]);
+                        case ')':while(s.peek()!='(')
+                                 {
+
+                                 }
+                }
+        }
