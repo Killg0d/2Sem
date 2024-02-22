@@ -4,19 +4,21 @@
 // 230970005
 // 15/01/2024
 import java.util.Scanner;
-class Telephone
+class Tele
 {
 
-	private static int custid=0;
+	private static int count=0;
+	private int custno;
 	private String name;
-	private int phoneno;
-	private int billno=100;
+	private long phoneno;
+	private int billno;
 	private int no_of_calls;
 	private double bill;
-	public Telephone()
+	public Tele()
 	{
-		custid++;
-		billno++;
+		count++;
+		custno=count;
+		billno=count+100;
 	}
 	public void getdata()
 	{
@@ -25,15 +27,18 @@ class Telephone
 		System.out.println("Enter cust name:");
 		name=sc.next();
 		System.out.println("Enter cust phoneno:");
-		phoneno=sc.nextInt();
+		phoneno=sc.nextLong();
 		System.out.println("Enter cust calls:");
 		no_of_calls=sc.nextInt();
 	}
 	public void display()
 	{
-		System.out.println("item name:"+name);
-		System.out.println("Enter item phoneno: "+ phoneno);
-		System.out.println("Enter item price: "+price);
+		System.out.println("Cust name:"+name);
+		System.out.println("Cust phoneno: "+ phoneno);
+		System.out.println("Cust calls: "+no_of_calls);
+		calculate_bill_amount();
+		System.out.println("Cust billno:"+billno);
+		System.out.println("Cust bills: "+bill);
 	}
 	public void calculate_bill_amount()
 	{
@@ -46,7 +51,7 @@ class Telephone
 
 			bill=100+(no_of_calls-100)*0.6;
 		}
-		else if(no_of_calls<=)
+		else if(no_of_calls<=200)
 		{
 			bill=100+50*0.6+(no_of_calls-150)*0.5;
 		}
@@ -56,39 +61,25 @@ class Telephone
 		}
 	}
 }
-class Shop
+class Telephone
 {
 	public static void main(String args[])
 	{
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter the number of customers:");
 		int MAX=sc.nextInt();
-		Telephone s[]=new Telephone[MAX];
-		int ch;
-		int i=0;
-		do
+		Tele s[]=new Tele[MAX];
+		for(int k=0;k<MAX;k++)
 		{
-			System.out.println("\n1.Read\n2.Display\n3.Exit\nEnter your choice:");
-			ch=sc.nextInt();
-			switch(ch)
-			{
-				case 1: if(i>=MAX)
-						{
-							System.out.println("\nCannot read anymore values");
-							break;
-						}
-						System.out.println("Enter item to read:");
-						s[i]=new Telephone();
-						s[i++].getdata();
-						break;
-				case 2: for(int k=0;k<i;k++)
-						{
-							s[k].display();
-						}
-						Telephone.calculate();
-						System.exit(1);
+			s[k]=new Tele();
+			s[k].getdata();
+		}
+	System.out.println("Customer details");
+		for(int k=0;k<MAX;k++)
+		{
+			s[k].display();
+		}
 
-			}
-		}while(ch!=3);
+
 	}
 }
