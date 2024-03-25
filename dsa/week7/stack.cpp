@@ -15,17 +15,11 @@ public:
 
 void Stack::push(int n)
 {
-        if(top==NULL){
                 node *newnode=new node;
                 newnode->data=n;
                 newnode->link=top;
                 top=newnode;
-        }else{
-                node *newnode=new node;
-                newnode->data=n;
-                newnode->link=top;
-                top=newnode;
-        }
+        
 }
 
 int Stack::pop()

@@ -59,7 +59,7 @@ void LinkedList::deleteNode(int val){
 void LinkedList::display(){
         node *cur=head->link;       
         while(cur!=NULL){
-                cout<<"\t"<<cur->data;
+                cout<<cur->data<<"\t";
                 cur=cur->link;
         }
 }
