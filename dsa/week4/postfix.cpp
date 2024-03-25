@@ -1,120 +1,127 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-const int MAX=50;
+const int MAX = 50;
+
 class Stack
 {
-        int top;
         char stack[MAX];
-        public:
-        Stack()
-        {
-                top=-1;
-        }
+        int top = -1;
+
+public:
+        void push(char n);
+        char pop();
         char peek();
         bool isFull();
         bool isEmpty();
-        char pop();
-        void push(char);
 };
-char Stack::peek()
-{
-        if(isEmpty())
-                return -1;
-        return stack[top];
-}
+
 bool Stack::isFull()
 {
-        return top==MAX-1;
+        return top == MAX - 1;
 }
+
 bool Stack::isEmpty()
 {
-        return top==-1;
+        return top == -1;
 }
-char Stack::pop()
-{
-        if(isEmpty())
-        {
-                cout<<"\nUnderflow";
-                return 1;
-        }
-        else
-        {
-                return stack[top--];
-        }
-}
+
 void Stack::push(char n)
 {
-        if(isFull())
-        {
-                cout<<"\nOverflow";
-                return;
-        }
-        else
-        {
-                stack[++top]=n;
-        }
+        if (!isFull())
+                stack[++top] = n;
 }
-int precedence(char c)
+
+char Stack::pop()
 {
-        switch(c)
-        {
-                case '(':return 0;
-                case '^':return 1;
-                case '*':
-                case '/':return 2;
-                case '%':return 3;
-                case '+':
-                case '-':return 4;
-        }
-        return 0;
+        if (!isEmpty())
+                return stack[top--];
+        return '\0';
 }
+
+char Stack::peek()
+{
+        if (!isEmpty())
+                return stack[top];
+        return '\0';
+}
+
+int getPrecedence(char op)
+{
+        switch (op)
+        {
+        case '^':
+                return 3;
+        case '*':
+        case '/':
+        case '%':
+                return 2;
+        case '+':
+        case '-':
+                return 1;
+        default:
+                return 0;
+        }
+}
+
 int main()
 {
         Stack s;
-        char ch[]="(a+b-(c*d^e))*x+y";
-        int length=0;
-        for(;ch[length]!='\0';length++);
-        cout<<length;
-        ch[length+1]=')';
-        ch[length+2]='\0';
-        // cout<<ch;
-        
-        // char p[length];
+        char infix[50], postfix[50], op, ele;
+        int len = 0, j = 0;
+
+        cout << "Enter the infix expression:";
+        cin >> infix;
+
+        for (int i = 0; infix[i] != '\0'; i++)
+                len++;
+
         s.push('(');
-        cout<<s.peek();
+        infix[len] = ')';
+        infix[len + 1] = '\0';
+
+        for (int i = 0; infix[i] != '\0'; i++)
+        {
+                op = infix[i];
+                switch (op)
+                {
+                case '(':
+                        s.push(op);
+                        break;
+                case ')':
+                        if (s.isEmpty())
+                        {
+                                cout << "Invalid infix expression\n";
+                                return 0;
+                        }
+                        while ((ele = s.pop()) != '(')
+                                postfix[j++] = ele;
+                        break;
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '%':
+                case '^':
+                        while (getPrecedence(s.peek()) >= getPrecedence(op))
+                        {
+                                ele = s.pop();
+                                postfix[j++] = ele;
+                        }
+                        s.push(op);
+                        break;
+                default:
+                        postfix[j++] = op;
+                        break;
+                }
+        }
+        if (!s.isEmpty())
+        {
+                cout << "Invalid infix expression\n";
+                return 0;
+        }
+
+        postfix[j] = '\0';
+
+        cout << "\nPostfix expression:" << postfix << endl;
         return 0;
-        // int k=0;
-        // for(int i=0;ch[i]!='\0';i++)
-        // {
-        //         switch(ch[i])
-        //         {
-        //                 case '(':
-        //                         s.push(ch[i]);
-        //                         break;
-        //                 case '^':
-        //                 case '*':
-        //                 case '/':
-        //                 case '+':
-        //                 case '-':
-        //                 case '%':
-        //                         while(precedence(s.peek())<=precedence(ch[i]))
-        //                         {
-        //                                 p[k++]=s.pop();
-        //                         }
-        //                         s.push(ch[i]);
-        //                 case ')':while(s.peek()!='(')
-        //                          {
-        //                                 p[k++]=s.pop();
-        //                          }
-        //                          if (s.peek()!='(')
-        //                          {
-        //                             cout<<"Invalid code:";
-        //                             exit(0);
-        //                          }
-        //                          s.pop();
-                                 
-        //         }
-        // }
-        // cout<<endl;
-        // return 0;
 }

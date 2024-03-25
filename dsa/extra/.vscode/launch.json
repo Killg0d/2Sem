@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/230970005/dsa/extra",
-      "program": "d:/230970005/dsa/extra/build/Debug/outDebug",
+      "cwd": "c:/Users/Tarun/Desktop/2sem/dsa/extra",
+      "program": "c:/Users/Tarun/Desktop/2sem/dsa/extra/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
