@@ -11,7 +11,7 @@ import java.util.Scanner;
 class Student
 {
 	private int regno,sem;
-	private String name,course;
+	protected String name,course;
 	void getdata()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -31,6 +31,7 @@ class Student
 		System.out.println("Course:"+course);
 		System.out.println("Semester:" + sem);
 	}
+	
 
 }
 class Exam extends Student
@@ -65,6 +66,7 @@ class Exam extends Student
 }
 class Result extends Exam
 {
+	
 	private int total;
 	private char grade;
 	void getdata()
@@ -98,14 +100,47 @@ class Result extends Exam
 		System.out.println("Total :"+total);
 		System.out.println("Result :"+ grade);
 	}
+	static void sortName(Result s[])
+	{
+		for(int i=0;i<s.length;i++)
+		{
+			for(int j=0;j<s.length-i-1;j++)
+			{
+				if(s[j].name.compareTo(s[j+1].name) > 0)
+				{
+					Result temp=s[j];
+					s[j]=s[j+1];
+					s[j+1]=temp;
+				}
+			}
+		}
+	}
 
 }
 class College
 {
 	public static void main(String args[]){
-	Result r= new Result();
-	r.getdata();
-	r.display();
+		// Result r= new Result();
+		// r.getdata();
+		// r.display();
+		// }
+		Result s[]=new Result[2];
+		for(int i=0;i<s.length;i++)
+		{
+			s[i]= new Result();
+		}
+		for(int i=0;i<s.length;i++)
+		{
+			s[i].getdata();
+		}
+		for(int i=0;i<s.length;i++)
+		{
+			s[i].display();
+		}
+		Result.sortName(s);//does not work if passed by student reference
+		for(int i=0;i<s.length;i++)
+		{
+			s[i].display();
+		}
 	}
-
 }

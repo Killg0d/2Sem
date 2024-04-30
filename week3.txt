@@ -1,0 +1,201 @@
+1 a)
+
+#!/bin/bash
+echo "Enter the file name"
+read file_name
+
+echo "File has following permissions:"
+
+if [ -r $file_name ]
+then
+        echo "Read"
+fi
+if [ -w $file_name ]
+then
+        echo "Write"
+fi
+if [ -x $file_name ]
+then
+        echo "Execute"
+fi
+
+
+
+
+
+
+
+1 b)
+
+#!/bin/bash
+echo "Enter the file name"
+read file
+
+if [ -e $file ]
+then
+        echo "$file exists"
+else
+        echo "$file doesn't exits"
+fi
+
+if [ -f $file ]
+then
+        echo "$file is a file"
+elif [ -d $file ]
+then
+        echo "$file is a directory"
+fi
+
+if [ -s $file ]
+then
+        echo "$file is a non-empty file"
+fi
+
+
+
+
+
+
+
+
+
+2 c)
+
+#!/bin/bash
+ls > files
+for file in `cat files`
+do
+        if [ -r $file ]
+        then
+                echo "$file"
+        fi
+done
+
+       OORR
+
+#!/bin/bash
+echo "Files with read permission:"
+for file in ./*
+do
+        if [ -r $file ]
+        then
+                echo "$file"
+        fi
+done
+
+
+
+
+
+2 d)
+
+#!/bin/bash
+echo "Enter the file name"
+read file_name
+if [ -e $file_name ]
+then
+        if [ -r $file_name ]
+        then
+                echo "file has read permission"
+        else
+                echo "file doesn't has read permission"
+        fi
+
+        if [ -w $file_name ]
+        then
+                echo "file has write permission"
+        else
+                echo "file doesn't has write permission"
+        fi
+
+        if [ -x $file_name ]
+        then
+                echo "file has execute permission"
+        else
+                echo "file doesn't has execute permission"
+        fi
+else
+        echo "$file_name doesn't exists"
+fi
+
+
+
+
+
+2 e)
+
+#!/bin/bash
+echo "Enter the file name:"
+read file
+if [ -e $file ]
+then
+        if [ -w $file ]
+        then
+                echo -e "$file has write permission.\nEnter content into the file:"
+                `cat > $file`
+        else
+                echo "$file doesnt has write permission"
+        fi
+else
+        echo "$file doesn't exists"
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3 f)
+
+#!/bin/bash
+
+fcount=0
+hcount=0
+dcount=0
+
+for file in *; do
+    if [ -f "$file" ]; then
+        ((fcount++))
+    elif [ -d "$file" ]; then
+        ((dcount++))
+    fi
+done
+
+for file in .*; do
+    if [ -f $file ]; then
+        ((hcount++))
+    fi
+done
+
+echo "Number of ordinary files: $fcount"
+echo "Number of hidden files: $hcount"
+echo "Number of subdirectories: $dcount"
+
+
+
+
+
+
+
+
+3 g)
+
+#!/bin/bash
+
+echo "Files with size > 0:"
+for file in *; do
+    if [ -s $file ]; then
+        echo $file
+    fi
+done

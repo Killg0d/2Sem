@@ -49,7 +49,7 @@ int main()
 {
         Stack s;
         char prefix[50], op;
-        int len;
+        int len=0;
         float val,res,num1,num2;
 
         cout << "Enter the prefix expression:";
